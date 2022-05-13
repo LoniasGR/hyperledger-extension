@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import BalancePage from './views/BalancePage/BalancePage';
+import CredentialPage from './views/CredentialPage/CredentialPage';
+import WelcomePage from './views/WelcomePage/WelcomePage';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [currentPage, setCurrentPage] = useState('welcome');
+  const [privateKey, setPrivateKey] = useState('');
+  const [publicKey, setPublicKey] = useState('');
+
+  const toCredentials = () => setCurrentPage('credentials');
+  const toBalance = () => setCurrentPage('balance');
+  const toWelcome = () => setCurrentPage('welcome');
+
+  const changePrivateKey = (newKey: string) => setPrivateKey(newKey);
+  const changePublicKey = (newKey: string) => setPublicKey(newKey);
+
+  if (currentPage === 'credentials') {
+    return (
+      <CredentialPage
+        toBalance={toBalance}
+        toWelcome={toWelcome}
+        privateKey={privateKey}
+        publicKey={publicKey}
+        changePrivateKey={changePrivateKey}
+        changePublicKey={changePublicKey}
+      />
+    );
+  }
+  if (currentPage === 'balance') {
+    return <BalancePage toCredentials={toCredentials} />;
+  }
+  return <WelcomePage toCredentials={toCredentials} />;
 }
 
 export default App;

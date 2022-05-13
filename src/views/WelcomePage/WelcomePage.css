@@ -1,0 +1,19 @@
+.submit {
+    background-color: #ec0188;
+    color: white;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    height: 3em;
+    text-align: center;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .submit:hover {
+    background-color: white;
+    color: #ec0188;
+    border: 1px #ec0188 solid;
+
+  }
