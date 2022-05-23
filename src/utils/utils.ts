@@ -29,7 +29,7 @@ export function setStorageData(data: object) {
 
 export async function getActualStorageData(key: string) {
   const dataObj = await getStorageData(key);
-  return Object.values(dataObj)[0];
+  console.log(dataObj);
 }
 
 export function keyToString(key: string) {
@@ -56,12 +56,12 @@ export async function getBalance(
     .then((response) => response.json())
     .then((data) => {
       if (data.success === false) {
-        return data.error;
+        return { error: data.error };
       }
       return {
         username: `Hello, ${data.user.name}`,
         balance: data.user.balance,
       };
     })
-    .catch((error) => error);
+    .catch((error) => ({ error }));
 }

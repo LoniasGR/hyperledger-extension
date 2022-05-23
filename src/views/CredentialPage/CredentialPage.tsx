@@ -3,10 +3,8 @@ import { arrayBufferToString } from '../../utils/utils';
 import './CredentialPage.css';
 
 type Props = {
-  toBalance: () => void,
+  toSelection: () => void,
   toWelcome: () => void,
-  privateKey: string,
-  publicKey: string,
   changePrivateKey: (newKey: string) => void,
   changePublicKey: (newKey: string) => void,
 };
@@ -32,12 +30,14 @@ function readKey(
   }
 }
 
-function CredentialPage(props: Props) {
-  const {
-    toBalance,
-    toWelcome,
-    publicKey, privateKey, changePrivateKey, changePublicKey,
-  } = props;
+function CredentialPage({
+  toSelection, toWelcome, changePrivateKey, changePublicKey,
+}: Props) {
+//   const [privateKeyFilename, setPrivateKeyFilename] = useState('');
+//   const [publicKeyFilame, setPublicKeyFilename] = useState('');
+
+  const privateKeyFilename: string = '';
+  const publicKeyFilename: string = '';
   return (
     <div id="second-page">
       <h1>Insert your private and public key to continue.</h1>
@@ -45,7 +45,7 @@ function CredentialPage(props: Props) {
         <div className="vertical centered">
           <p>Private key:</p>
           <label htmlFor="private-key" id="private-key-label">
-            Select private key
+            {privateKeyFilename === '' ? 'Select private key' : privateKeyFilename}
             <input type="file" id="private-key" onChange={(e) => readKey(e, changePrivateKey)} />
           </label>
         </div>
@@ -53,7 +53,7 @@ function CredentialPage(props: Props) {
         <div className="vertical centered">
           <p>Public key:</p>
           <label htmlFor="public-key" id="public-key-label">
-            Select public key
+            {publicKeyFilename === '' ? 'Select public key' : publicKeyFilename}
             <input type="file" id="public-key" onChange={(e) => readKey(e, changePublicKey)} />
           </label>
         </div>
@@ -62,7 +62,7 @@ function CredentialPage(props: Props) {
           <button type="button" className="previous" onClick={toWelcome}>
             &#8249; Back
           </button>
-          <button type="button" className="next" onClick={toBalance}>
+          <button type="button" className="next" onClick={toSelection}>
             Next &#8250;
           </button>
         </div>
