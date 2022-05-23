@@ -21,16 +21,13 @@ function App() {
   const toVRU = () => setCurrentPage('vru');
   const toParts = () => setCurrentPage('parts');
 
-  const changePrivateKey = (newKey: string) => setPrivateKey(newKey);
-  const changePublicKey = (newKey: string) => setPublicKey(newKey);
-
   if (currentPage === 'credentials') {
     return (
       <CredentialPage
         toSelection={toSelection}
         toWelcome={toWelcome}
-        changePrivateKey={changePrivateKey}
-        changePublicKey={changePublicKey}
+        setPrivateKey={setPrivateKey}
+        setPublicKey={setPublicKey}
       />
     );
   }
