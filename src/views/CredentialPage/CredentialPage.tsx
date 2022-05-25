@@ -84,7 +84,12 @@ function CredentialPage({
         <div className="vertical centered">
           <p>Private key:</p>
           <label htmlFor="private-key" id="private-key-label">
-            {privateKeyFilename === '' ? 'Select private key' : `File: ${privateKeyFilename}`}
+            {privateKeyFilename === '' ? 'Select private key' : (
+              <p>
+                <strong>File: </strong>
+                {`${privateKeyFilename}`}
+              </p>
+            )}
             <input type="file" id="private-key" onChange={(e) => readKey(e, 'private', setPrivateKey, setPrivateKeyFilename)} />
           </label>
         </div>
@@ -92,7 +97,12 @@ function CredentialPage({
         <div className="vertical centered">
           <p>Public key:</p>
           <label htmlFor="public-key" id="public-key-label">
-            {publicKeyFilename === '' ? 'Select public key' : `File: ${publicKeyFilename}`}
+            {publicKeyFilename === '' ? 'Select public key' : (
+              <p>
+                <strong>File: </strong>
+                {`${publicKeyFilename}`}
+              </p>
+            )}
             <input type="file" id="public-key" onChange={(e) => readKey(e, 'public', setPublicKey, setPublicKeyFilename)} />
           </label>
         </div>

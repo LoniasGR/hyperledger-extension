@@ -1,6 +1,14 @@
-input[type="datetime-local"] {
+input[type="date"], input[type="time"] {
   font-size: 1.2rem;
   display: block;
   padding: 0.5rem 1rem;
   margin: 1rem 0 2rem;
+}
+
+.search:disabled {
+  background-color: hsl(326, 99%, 20%);
+}
+
+.search:disabled:hover {
+  color: white;
 }

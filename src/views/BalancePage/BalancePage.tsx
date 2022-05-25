@@ -1,32 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getBalance } from '../../utils/utils';
 import Loader from '../../components/Loader/Loader';
 
 type Props = {
   toCredentials: () => void,
-  networkURL: string,
   privateKey: string,
   publicKey: string,
 };
 
 function BalancePage({
-  toCredentials, networkURL, privateKey, publicKey,
+  toCredentials, privateKey, publicKey,
 }: Props) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [username, setUsername] = useState('');
   const [balance, setBalance] = useState('');
 
-  getBalance(networkURL, privateKey, publicKey)
-    .then((result) => {
-      if (result.error !== undefined) {
-        setError(result.error);
-        setLoading(false);
-      } else {
-        setUsername(result.username);
-        setBalance(result.balance);
-      }
-    });
+  useEffect(() => {
+    getBalance(privateKey, publicKey)
+      .then((result) => {
+        console.log(result);
+        if (result.error !== undefined) {
+          setError(result.error);
+          setLoading(false);
+        } else {
+          setUsername(result.username!);
+          setBalance(result.balance!);
+          setLoading(false);
+        }
+      });
+  }, []);
+
   if (loading) {
     return (<Loader />);
   }

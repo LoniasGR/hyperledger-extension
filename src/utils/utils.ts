@@ -1,6 +1,25 @@
+import { balanceURL, vruURL, partsURL } from './constants';
+
 type BalanceData = {
-  username: string,
-  balance: string,
+  username?: string,
+  balance?: string,
+  error?: string,
+};
+
+type VRUAssetData = {
+  assets?: number,
+  error?: string,
+};
+
+type PartsAssets = {
+  total: number,
+  high_quality: number,
+  low_quality: number,
+};
+
+type PartsAssetData = {
+  assets?: PartsAssets,
+  error?: string,
 };
 
 export function arrayBufferToString(buffer: ArrayBuffer): string {
@@ -37,13 +56,10 @@ export function keyToString(key: string) {
 }
 
 export async function getBalance(
-  networkURL: string,
   privateKey: string,
   publicKey: string,
-): Promise<BalanceData | any> {
-  console.log(privateKey);
-  console.log(publicKey);
-  fetch(`${networkURL}/balance`, {
+): Promise<BalanceData> {
+  return fetch(balanceURL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -62,6 +78,66 @@ export async function getBalance(
         username: `Hello, ${data.user.name}`,
         balance: data.user.balance,
       };
+    })
+    .catch((error) => ({ error }));
+}
+
+export async function getVRU(
+  privateKey: string,
+  publicKey: string,
+  startDate: number,
+  endDate: number,
+) : Promise<VRUAssetData> {
+  return fetch(vruURL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      key: keyToString(privateKey),
+      cert: keyToString(publicKey),
+      startDate,
+      endDate,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success === false) {
+        return { error: data.error };
+      }
+      return { assets: data.assets };
+    })
+    .catch((error) => ({ error }));
+}
+
+export async function getParts(
+  privateKey: string,
+  publicKey: string,
+  startDate: number,
+  endDate: number,
+) : Promise<PartsAssetData> {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  console.log(end.toISOString());
+  return fetch(partsURL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      key: keyToString(privateKey),
+      cert: keyToString(publicKey),
+      startDate: start.toISOString(),
+      endDate: end.toISOString(),
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success === false) {
+        return { error: data.error };
+      }
+      console.log(data.assets);
+      return { assets: data.assets };
     })
     .catch((error) => ({ error }));
 }

@@ -8,8 +8,6 @@ import VRUPage from './views/VRUPage/VRUPage';
 import PartsPage from './views/PartsPage/PartsPage';
 
 function App() {
-  const networkURL = 'http://localhost:8001';
-
   const [currentPage, setCurrentPage] = useState('welcome');
   const [privateKey, setPrivateKey] = useState('');
   const [publicKey, setPublicKey] = useState('');
@@ -35,7 +33,6 @@ function App() {
     return (
       <BalancePage
         toCredentials={toCredentials}
-        networkURL={networkURL}
         privateKey={privateKey}
         publicKey={publicKey}
       />
@@ -53,12 +50,20 @@ function App() {
   }
   if (currentPage === 'vru') {
     return (
-      <VRUPage toSelection={toSelection} />
+      <VRUPage
+        toSelection={toSelection}
+        privateKey={privateKey}
+        publicKey={publicKey}
+      />
     );
   }
   if (currentPage === 'parts') {
     return (
-      <PartsPage toSelection={toSelection} />
+      <PartsPage
+        toSelection={toSelection}
+        privateKey={privateKey}
+        publicKey={publicKey}
+      />
     );
   }
   return <WelcomePage toCredentials={toCredentials} />;
