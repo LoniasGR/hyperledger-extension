@@ -6,6 +6,7 @@ import { getVRU } from '../../utils/utils';
 import DatePicker from '../../components/DatePicker/DatePicker';
 
 import './VRUPage.css';
+import SubmitButton from '../../components/SubmitButton/SubmitButton';
 
 type Props = {
   toSelection: () => void,
@@ -73,9 +74,7 @@ function VRUPage({ toSelection, privateKey, publicKey }: Props) {
         {error}
       </p>
       )}
-      <button type="button" className="previous submit" onClick={toSelection}>
-        &#8249; Back
-      </button>
+      <SubmitButton onClick={toSelection} className="previous">&#8249; Back</SubmitButton>
     </>
   );
 }

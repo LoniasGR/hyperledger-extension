@@ -1,4 +1,5 @@
 import React from 'react';
+import SubmitButton from '../../components/SubmitButton/SubmitButton';
 
 type Props = {
   toCredentials:() => void,
@@ -11,19 +12,10 @@ function SelectPage({
 }: Props) {
   return (
     <div>
-      <button type="button" className="submit" onClick={toBalance}>
-        Balance
-      </button>
-      <button type="button" className="submit" onClick={toVRU}>
-        VRU
-      </button>
-      <button type="button" className="submit" onClick={toParts}>
-        Parts
-      </button>
-      <button type="button" className="submit" onClick={toCredentials}>
-        Back
-      </button>
-
+      <SubmitButton onClick={toBalance}>Balance</SubmitButton>
+      <SubmitButton onClick={toVRU}>VRU</SubmitButton>
+      <SubmitButton onClick={toParts}>Parts</SubmitButton>
+      <SubmitButton onClick={toCredentials}>Back</SubmitButton>
     </div>
   );
 }

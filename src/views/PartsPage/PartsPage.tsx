@@ -2,6 +2,7 @@ import React, {
   useState, useEffect, useRef,
 } from 'react';
 import DatePicker from '../../components/DatePicker/DatePicker';
+import SubmitButton from '../../components/SubmitButton/SubmitButton';
 import { getParts } from '../../utils/utils';
 
 import './PartsPage.css';
@@ -86,9 +87,7 @@ function PartsPage({ toSelection, privateKey, publicKey }: Props) {
         {error}
       </p>
       )}
-      <button type="button" className="previous submit" onClick={toSelection}>
-        &#8249; Back
-      </button>
+      <SubmitButton onClick={toSelection} className="previous">&#8249; Back</SubmitButton>
     </>
   );
 }

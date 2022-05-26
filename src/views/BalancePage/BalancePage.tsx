@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getBalance } from '../../utils/utils';
 import Loader from '../../components/Loader/Loader';
+import SubmitButton from '../../components/SubmitButton/SubmitButton';
 
 type Props = {
   toCredentials: () => void,
@@ -47,9 +48,8 @@ function BalancePage({
       <p>Your balance is</p>
       <h3 id="balance">{`${balance}`}</h3>
       <div className="centered">
-        <button type="button" className="previous" onClick={toCredentials}>
-          &#8249; Back
-        </button>
+        <SubmitButton onClick={toCredentials} className="previous">&#8249; Back</SubmitButton>
+
       </div>
     </div>
   );
