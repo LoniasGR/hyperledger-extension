@@ -20,7 +20,6 @@ function BalancePage({
   useEffect(() => {
     getBalance(privateKey, publicKey)
       .then((result) => {
-        console.log(result);
         if (result.error !== undefined) {
           setError(result.error);
           setLoading(false);
