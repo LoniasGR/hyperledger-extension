@@ -43,17 +43,33 @@ function DatePicker({
   }, [endDate, endTime]);
 
   return (
-    <div className="centered">
-      <label htmlFor="meeting-time">
-        Start time:
-        <input type="date" required onChange={(e: ChangeEvent) => dateChange(e, setStartDate)} />
-        <input type="time" required onChange={(e: ChangeEvent) => dateChange(e, setStartTime)} />
-      </label>
-      <label htmlFor="meeting-time">
-        End time:
-        <input type="date" onChange={(e: ChangeEvent) => dateChange(e, setEndDate)} />
-        <input type="time" onChange={(e: ChangeEvent) => dateChange(e, setEndTime)} />
-      </label>
+    <div className="center-evenly">
+      <div>
+        <fieldset>
+          <legend>Range start:</legend>
+          <label htmlFor="start-date">
+            Date:
+            <input type="date" id="start-date" required onChange={(e: ChangeEvent) => dateChange(e, setStartDate)} />
+          </label>
+          <label htmlFor="start-time">
+            Time:
+            <input type="time" id="start-time" required onChange={(e: ChangeEvent) => dateChange(e, setStartTime)} />
+          </label>
+        </fieldset>
+      </div>
+      <div>
+        <fieldset>
+          <legend>Range end:</legend>
+          <label className="date-picker" htmlFor="end-date">
+            Date:
+            <input type="date" id="end-date" onChange={(e: ChangeEvent) => dateChange(e, setEndDate)} />
+          </label>
+          <label htmlFor="end-time">
+            Time:
+            <input type="time" id="end-time" onChange={(e: ChangeEvent) => dateChange(e, setEndTime)} />
+          </label>
+        </fieldset>
+      </div>
     </div>
   );
 }

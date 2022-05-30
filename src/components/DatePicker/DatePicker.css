@@ -5,3 +5,19 @@ input[type="time"] {
   padding: 0.5rem 1rem;
   margin: 1rem 0 2rem;
 }
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  padding-top: 0.5rem;
+}
+
+.center-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
