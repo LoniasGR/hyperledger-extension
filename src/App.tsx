@@ -32,7 +32,7 @@ function App() {
   if (currentPage === 'balance') {
     return (
       <BalancePage
-        toCredentials={toCredentials}
+        toSelection={toSelection}
         privateKey={privateKey}
         publicKey={publicKey}
       />

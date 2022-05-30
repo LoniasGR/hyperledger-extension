@@ -4,13 +4,13 @@ import Loader from '../../components/Loader/Loader';
 import SubmitButton from '../../components/SubmitButton/SubmitButton';
 
 type Props = {
-  toCredentials: () => void,
+  toSelection: () => void,
   privateKey: string,
   publicKey: string,
 };
 
 function BalancePage({
-  toCredentials, privateKey, publicKey,
+  toSelection, privateKey, publicKey,
 }: Props) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -31,24 +31,31 @@ function BalancePage({
       });
   }, []);
 
+  let elements: JSX.Element;
+
   if (loading) {
-    return (<Loader />);
-  }
-  if (error !== '') {
-    return (
+    elements = <Loader />;
+  } else if (error !== '') {
+    elements = (
       <div>
         <h2>{`Error: ${error}`}</h2>
       </div>
     );
+  } else {
+    elements = (
+      <>
+        <h2 id="username">{`${username}`}</h2>
+        <p>Your balance is</p>
+        <h3 id="balance">{`${balance}`}</h3>
+      </>
+    );
   }
+
   return (
     <div>
-      <h2 id="username">{`${username}`}</h2>
-      <p>Your balance is</p>
-      <h3 id="balance">{`${balance}`}</h3>
+      {elements}
       <div className="centered">
-        <SubmitButton onClick={toCredentials} className="previous">&#8249; Back</SubmitButton>
-
+        <SubmitButton onClick={toSelection} className="previous">&#8249; Back</SubmitButton>
       </div>
     </div>
   );
