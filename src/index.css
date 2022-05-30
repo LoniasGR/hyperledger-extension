@@ -6,10 +6,8 @@ body {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 600px;
-  height: 400px;
   margin: 1rem;
-  min-width: 10rem;
+  min-width: 400px;
 }
 
 code {
