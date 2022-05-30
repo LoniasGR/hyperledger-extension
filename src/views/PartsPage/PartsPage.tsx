@@ -52,14 +52,12 @@ function PartsPage({ toSelection, privateKey, publicKey }: Props) {
         setEnd={setEnd}
         setEndBoolean={setEndBoolean}
       />
-      <button
-        type="button"
-        className="submit search"
+      <SubmitButton
         disabled={!startBoolean && !endBoolean}
         onClick={() => { setNewResult(newResult + 1); }}
       >
         Search
-      </button>
+      </SubmitButton>
       {results[0] !== -1 && (
         <table>
           <tr>

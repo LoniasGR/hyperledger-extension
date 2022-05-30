@@ -1,7 +1,0 @@
-.search:disabled {
-  background-color: hsl(326, 99%, 20%);
-}
-
-.search:disabled:hover {
-  color: white;
-}

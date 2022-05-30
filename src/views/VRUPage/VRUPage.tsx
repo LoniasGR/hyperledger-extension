@@ -50,14 +50,12 @@ function VRUPage({ toSelection, privateKey, publicKey }: Props) {
         setEnd={setEnd}
         setEndBoolean={setEndBoolean}
       />
-      <button
-        type="button"
-        className="submit search"
+      <SubmitButton
         disabled={!startBoolean && !endBoolean}
         onClick={() => { setNewResult(newResult + 1); }}
       >
         Search
-      </button>
+      </SubmitButton>
       {results !== -1 && (
       <p>
         There are

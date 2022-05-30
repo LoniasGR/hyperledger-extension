@@ -5,10 +5,12 @@ type Props = {
   onClick: MouseEventHandler,
   children: JSX.Element | string,
   className?: string,
+  disabled?: boolean,
 };
 
 function SubmitButton({
   onClick,
+  disabled,
   children,
   className,
 }: Props) {
@@ -17,7 +19,7 @@ function SubmitButton({
     classes += (` ${className}`);
   }
   return (
-    <button type="button" className={classes} onClick={onClick}>
+    <button type="button" className={classes} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );
@@ -25,6 +27,7 @@ function SubmitButton({
 
 SubmitButton.defaultProps = {
   className: '',
+  disabled: false,
 };
 
 export default SubmitButton;
