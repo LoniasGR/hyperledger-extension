@@ -6,8 +6,14 @@ type BalanceData = {
   error?: string,
 };
 
+type VRUAssets = {
+  highRisk: number,
+  lowRisk: number,
+  noRisk: number,
+};
+
 type VRUAssetData = {
-  assets?: number,
+  assets?: VRUAssets,
   error?: string,
 };
 

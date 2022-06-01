@@ -19,7 +19,7 @@ function VRUPage({ toSelection, privateKey, publicKey }: Props) {
   const [startBoolean, setStartBoolean] = useState(false);
   const [end, setEnd] = useState(0);
   const [endBoolean, setEndBoolean] = useState(false);
-  const [results, setResults] = useState(-1);
+  const [results, setResults] = useState([-1, -1, -1]);
   const [newResult, setNewResult] = useState(0);
   const [error, setError] = useState('');
 
@@ -31,10 +31,11 @@ function VRUPage({ toSelection, privateKey, publicKey }: Props) {
         .then((result) => {
           if (result.error !== undefined) {
             setError(result.error);
-            setResults(-1);
+            setResults([-1, -1, -1]);
           } else {
             setError('');
-            setResults(result.assets!);
+            const { highRisk, lowRisk, noRisk } = result.assets!;
+            setResults([highRisk, lowRisk, noRisk]);
           }
         });
     } else {
@@ -56,14 +57,26 @@ function VRUPage({ toSelection, privateKey, publicKey }: Props) {
       >
         Search
       </SubmitButton>
-      {results !== -1 && (
-      <p>
-        There are
-        {' '}
-        {results}
-        {' '}
-        assets in this time range.
-      </p>
+      {(results[0] !== -1 && results[1] !== -1 && results[2] !== -1)
+      && (
+        <table>
+          <tr>
+            <th>Total</th>
+            <th>High Quality</th>
+            <th>Low Quality</th>
+          </tr>
+          <tr>
+            <td>
+              {results[0]}
+            </td>
+            <td>
+              {results[1]}
+            </td>
+            <td>
+              {results[2]}
+            </td>
+          </tr>
+        </table>
       )}
       {error !== '' && (
       <p>
