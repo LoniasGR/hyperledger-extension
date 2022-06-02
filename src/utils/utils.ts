@@ -85,7 +85,10 @@ export async function getBalance(
         balance: data.user.balance,
       };
     })
-    .catch((error) => ({ error }));
+    .catch((error: Error) => {
+      const errStr = error.toString();
+      return { error: errStr };
+    });
 }
 
 export async function getVRU(
@@ -113,7 +116,10 @@ export async function getVRU(
       }
       return { assets: data.assets };
     })
-    .catch((error) => ({ error }));
+    .catch((error: Error) => {
+      const errStr = error.toString();
+      return { error: errStr };
+    });
 }
 
 export async function getParts(
@@ -145,5 +151,8 @@ export async function getParts(
       console.log(data.assets);
       return { assets: data.assets };
     })
-    .catch((error) => ({ error }));
+    .catch((error: Error) => {
+      const errStr = error.toString();
+      return { error: errStr };
+    });
 }

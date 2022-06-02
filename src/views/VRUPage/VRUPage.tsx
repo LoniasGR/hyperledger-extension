@@ -7,6 +7,7 @@ import DatePicker from '../../components/DatePicker/DatePicker';
 
 import './VRUPage.css';
 import SubmitButton from '../../components/SubmitButton/SubmitButton';
+import Loader from '../../components/Loader/Loader';
 
 type Props = {
   toSelection: () => void,
@@ -22,6 +23,8 @@ function VRUPage({ toSelection, privateKey, publicKey }: Props) {
   const [results, setResults] = useState([-1, -1, -1]);
   const [newResult, setNewResult] = useState(0);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+  let elements: JSX.Element;
 
   const isMounted = useRef(false);
 
@@ -32,16 +35,51 @@ function VRUPage({ toSelection, privateKey, publicKey }: Props) {
           if (result.error !== undefined) {
             setError(result.error);
             setResults([-1, -1, -1]);
+            setLoading(false);
           } else {
             setError('');
             const { highRisk, lowRisk, noRisk } = result.assets!;
             setResults([highRisk, lowRisk, noRisk]);
+            setLoading(false);
           }
         });
     } else {
       isMounted.current = true;
     }
   }, [newResult]);
+
+  if (loading) {
+    elements = <Loader />;
+  } else if (error !== '') {
+    elements = (
+      <p>
+        An error occurred:
+        {' '}
+        {error}
+      </p>
+    );
+  } else {
+    elements = (
+      <table>
+        <tr>
+          <th>Total</th>
+          <th>High Quality</th>
+          <th>Low Quality</th>
+        </tr>
+        <tr>
+          <td>
+            {results[0]}
+          </td>
+          <td>
+            {results[1]}
+          </td>
+          <td>
+            {results[2]}
+          </td>
+        </tr>
+      </table>
+    );
+  }
 
   return (
     <>
@@ -53,37 +91,13 @@ function VRUPage({ toSelection, privateKey, publicKey }: Props) {
       />
       <SubmitButton
         disabled={!startBoolean || !endBoolean}
-        onClick={() => { setNewResult(newResult + 1); }}
+        onClick={() => { setLoading(true); setNewResult(newResult + 1); }}
       >
         Search
       </SubmitButton>
-      {(results[0] !== -1 && results[1] !== -1 && results[2] !== -1)
+      {newResult !== 0
       && (
-        <table>
-          <tr>
-            <th>Total</th>
-            <th>High Quality</th>
-            <th>Low Quality</th>
-          </tr>
-          <tr>
-            <td>
-              {results[0]}
-            </td>
-            <td>
-              {results[1]}
-            </td>
-            <td>
-              {results[2]}
-            </td>
-          </tr>
-        </table>
-      )}
-      {error !== '' && (
-      <p>
-        An error occurred:
-        {' '}
-        {error}
-      </p>
+        elements
       )}
       <SubmitButton onClick={toSelection} className="previous">&#8249; Back</SubmitButton>
     </>

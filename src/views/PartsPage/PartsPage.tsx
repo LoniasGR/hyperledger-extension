@@ -2,6 +2,7 @@ import React, {
   useState, useEffect, useRef,
 } from 'react';
 import DatePicker from '../../components/DatePicker/DatePicker';
+import Loader from '../../components/Loader/Loader';
 import SubmitButton from '../../components/SubmitButton/SubmitButton';
 import { getParts } from '../../utils/utils';
 
@@ -21,6 +22,8 @@ function PartsPage({ toSelection, privateKey, publicKey }: Props) {
   const [results, setResults] = useState([-1, -1, -1]);
   const [newResult, setNewResult] = useState(0);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+  let elements: JSX.Element;
 
   const isMounted = useRef(false);
 
@@ -31,19 +34,53 @@ function PartsPage({ toSelection, privateKey, publicKey }: Props) {
           if (result.error !== undefined) {
             setError(result.error);
             setResults([-1, -1, -1]);
+            setLoading(false);
           } else {
             setError('');
             const highQuality = result.assets!.high_quality;
             const lowQuality = result.assets!.low_quality;
             const { total } = result.assets!;
-            console.log(highQuality);
             setResults([total, highQuality, lowQuality]);
+            setLoading(false);
           }
         });
     } else {
       isMounted.current = true;
     }
   }, [newResult]);
+
+  if (loading) {
+    elements = <Loader />;
+  } else if (error !== '') {
+    elements = (
+      <p>
+        An error occurred:
+        {' '}
+        {error}
+      </p>
+    );
+  } else {
+    elements = (
+      <table>
+        <tr>
+          <th>Total</th>
+          <th>High Quality</th>
+          <th>Low Quality</th>
+        </tr>
+        <tr>
+          <td>
+            {results[0]}
+          </td>
+          <td>
+            {results[1]}
+          </td>
+          <td>
+            {results[2]}
+          </td>
+        </tr>
+      </table>
+    );
+  }
   return (
     <>
       <DatePicker
@@ -54,36 +91,12 @@ function PartsPage({ toSelection, privateKey, publicKey }: Props) {
       />
       <SubmitButton
         disabled={!startBoolean || !endBoolean}
-        onClick={() => { setNewResult(newResult + 1); }}
+        onClick={() => { setLoading(true); setNewResult(newResult + 1); }}
       >
         Search
       </SubmitButton>
-      {results[0] !== -1 && (
-        <table>
-          <tr>
-            <th>Total</th>
-            <th>High Quality</th>
-            <th>Low Quality</th>
-          </tr>
-          <tr>
-            <td>
-              {results[0]}
-            </td>
-            <td>
-              {results[1]}
-            </td>
-            <td>
-              {results[2]}
-            </td>
-          </tr>
-        </table>
-      )}
-      {error !== '' && (
-      <p>
-        An error occurred:
-        {' '}
-        {error}
-      </p>
+      {newResult !== 0 && (
+        elements
       )}
       <SubmitButton onClick={toSelection} className="previous">&#8249; Back</SubmitButton>
     </>
