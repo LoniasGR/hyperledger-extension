@@ -52,7 +52,7 @@ function VRUPage({ toSelection, privateKey, publicKey }: Props) {
         setEndBoolean={setEndBoolean}
       />
       <SubmitButton
-        disabled={!startBoolean && !endBoolean}
+        disabled={!startBoolean || !endBoolean}
         onClick={() => { setNewResult(newResult + 1); }}
       >
         Search
