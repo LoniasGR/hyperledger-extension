@@ -62,9 +62,9 @@ function VRUPage({ toSelection, privateKey, publicKey }: Props) {
     elements = (
       <table>
         <tr>
-          <th>Total</th>
-          <th>High Quality</th>
-          <th>Low Quality</th>
+          <th>High Risk</th>
+          <th>Low Risk</th>
+          <th>No Risk</th>
         </tr>
         <tr>
           <td>
