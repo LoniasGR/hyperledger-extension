@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './App.css';
 import BalancePage from './views/BalancePage/BalancePage';
 import CredentialPage from './views/CredentialPage/CredentialPage';
 import SelectPage from './views/SelectPage/SelectPage';
