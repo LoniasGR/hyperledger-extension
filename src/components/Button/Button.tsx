@@ -1,22 +1,27 @@
 import React, { MouseEventHandler } from 'react';
-import './SubmitButton.css';
+import './Button.css';
 
 type Props = {
   onClick: MouseEventHandler,
   children: JSX.Element | string,
+  fullWidth?: boolean,
   className?: string,
   disabled?: boolean,
 };
 
-function SubmitButton({
+function Button({
   onClick,
   disabled,
+  fullWidth,
   children,
   className,
 }: Props) {
-  let classes:string = 'submit';
+  let classes:string = '';
   if (className !== '') {
     classes += (` ${className}`);
+  }
+  if (fullWidth) {
+    classes += ' submit';
   }
   return (
     <button type="button" className={classes} onClick={onClick} disabled={disabled}>
@@ -25,9 +30,10 @@ function SubmitButton({
   );
 }
 
-SubmitButton.defaultProps = {
+Button.defaultProps = {
   className: '',
+  fullWidth: false,
   disabled: false,
 };
 
-export default SubmitButton;
+export default Button;

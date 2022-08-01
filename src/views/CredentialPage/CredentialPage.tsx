@@ -1,14 +1,20 @@
 import React, {
   ChangeEvent, useCallback, useEffect, useState,
 } from 'react';
+import { getInitInfo } from '../../api/api';
+import Button from '../../components/Button/Button';
 import { arrayBufferToString, getActualStorageData, setStorageData } from '../../utils/utils';
 import './CredentialPage.css';
 
 type Props = {
+  privateKey: string,
+  publicKey: string,
   toSelection: () => void,
   toWelcome: () => void,
   setPrivateKey: (newKey: string) => void,
   setPublicKey: (newKey: string) => void,
+  setOrganisation: (organisation: number) => void,
+  setUsername: (username: string) => void,
 };
 
 function readKey(
@@ -51,24 +57,37 @@ function readKey(
 }
 
 function CredentialPage({
-  toSelection, toWelcome, setPrivateKey, setPublicKey,
+  toSelection,
+  toWelcome,
+  setPrivateKey,
+  setPublicKey,
+  setOrganisation,
+  privateKey,
+  publicKey,
+  setUsername,
 }: Props) {
   const [privateKeyFilename, setPrivateKeyFilename] = useState('');
   const [publicKeyFilename, setPublicKeyFilename] = useState('');
+  const [isPrivateKeySet, setIsPrivateKeySet] = useState(false);
+  const [isPublicKeySet, setIsPublicKeySet] = useState(false);
+
+  const [error, setError] = useState('');
 
   const updateKeys = useCallback(async () => {
     const privateFilename = await getActualStorageData('privateKeyFilename');
-    const privateKey = await getActualStorageData('privateKey');
-    if (privateFilename !== '' && privateKey !== '') {
+    const privateKeyTemp = await getActualStorageData('privateKey');
+    if (privateFilename !== '' && privateKeyTemp !== '') {
       setPrivateKeyFilename(privateFilename);
-      setPrivateKey(privateKey);
+      setPrivateKey(privateKeyTemp);
+      setIsPrivateKeySet(true);
     }
 
     const publicFilename = await getActualStorageData('publicKeyFilename');
-    const publicKey = await getActualStorageData('publicKey');
-    if (publicFilename !== '' && publicKey !== '') {
+    const publicKeyTemp = await getActualStorageData('publicKey');
+    if (publicFilename !== '' && publicKeyTemp !== '') {
       setPublicKeyFilename(publicFilename);
-      setPublicKey(publicKey);
+      setPublicKey(publicKeyTemp);
+      setIsPublicKeySet(true);
     }
   }, []);
 
@@ -76,6 +95,19 @@ function CredentialPage({
     updateKeys()
       .catch((err) => console.log(err));
   }, []);
+
+  const onNextClick = async () => {
+    getInitInfo(privateKey, publicKey)
+      .then((result) => {
+        if (result.error !== undefined) {
+          setError(result.error);
+          return;
+        }
+        setOrganisation(result.organisation!);
+        setUsername(result.username!);
+        toSelection();
+      });
+  };
 
   return (
     <div id="second-page">
@@ -107,13 +139,21 @@ function CredentialPage({
           </label>
         </div>
 
+        {
+          error !== '' && (
+          <div>
+            <h2>{`Error: ${error}`}</h2>
+          </div>
+          )
+        }
+
         <div className="centered">
-          <button type="button" className="previous" onClick={toWelcome}>
+          <Button className="previous" onClick={toWelcome}>
             &#8249; Back
-          </button>
-          <button type="button" className="next" onClick={toSelection}>
+          </Button>
+          <Button className="next" disabled={!isPrivateKeySet || !isPublicKeySet} onClick={onNextClick}>
             Next &#8250;
-          </button>
+          </Button>
         </div>
       </form>
     </div>

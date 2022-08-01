@@ -22,6 +22,6 @@
   cursor: not-allowed;
 }
 
-.submit:disabled:hover{
+.submit:disabled:hover {
   color: white;
 }

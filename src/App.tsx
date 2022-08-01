@@ -11,6 +11,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState('welcome');
   const [privateKey, setPrivateKey] = useState('');
   const [publicKey, setPublicKey] = useState('');
+  const [organisation, setOrganisation] = useState(0);
+  const [username, setUsername] = useState('');
 
   const toCredentials = () => setCurrentPage('credentials');
   const toBalance = () => setCurrentPage('balance');
@@ -22,10 +24,26 @@ function App() {
   if (currentPage === 'credentials') {
     return (
       <CredentialPage
+        setUsername={setUsername}
+        privateKey={privateKey}
+        publicKey={publicKey}
         toSelection={toSelection}
         toWelcome={toWelcome}
         setPrivateKey={setPrivateKey}
         setPublicKey={setPublicKey}
+        setOrganisation={setOrganisation}
+      />
+    );
+  }
+  if (currentPage === 'select') {
+    return (
+      <SelectPage
+        username={username}
+        toCredentials={toCredentials}
+        toBalance={toBalance}
+        toVRU={toVRU}
+        toParts={toParts}
+        organisation={organisation}
       />
     );
   }
@@ -35,16 +53,6 @@ function App() {
         toSelection={toSelection}
         privateKey={privateKey}
         publicKey={publicKey}
-      />
-    );
-  }
-  if (currentPage === 'select') {
-    return (
-      <SelectPage
-        toCredentials={toCredentials}
-        toBalance={toBalance}
-        toVRU={toVRU}
-        toParts={toParts}
       />
     );
   }

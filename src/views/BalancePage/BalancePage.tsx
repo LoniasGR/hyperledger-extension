@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { getBalance } from '../../utils/utils';
+import { getBalance } from '../../api/api';
 import Loader from '../../components/Loader/Loader';
-import SubmitButton from '../../components/SubmitButton/SubmitButton';
+import Button from '../../components/Button/Button';
 
 type Props = {
   toSelection: () => void,
@@ -55,7 +55,7 @@ function BalancePage({
     <div>
       {elements}
       <div className="centered">
-        <SubmitButton onClick={toSelection} className="previous">&#8249; Back</SubmitButton>
+        <Button fullWidth onClick={toSelection} className="previous">&#8249; Back</Button>
       </div>
     </div>
   );

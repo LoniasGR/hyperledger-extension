@@ -2,11 +2,11 @@ import React, {
   useState, useEffect, useRef,
 } from 'react';
 
-import { getVRU } from '../../utils/utils';
+import { getVRU } from '../../api/api';
 import DatePicker from '../../components/DatePicker/DatePicker';
 
 import './VRUPage.css';
-import SubmitButton from '../../components/SubmitButton/SubmitButton';
+import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
 
 type Props = {
@@ -89,17 +89,18 @@ function VRUPage({ toSelection, privateKey, publicKey }: Props) {
         setEnd={setEnd}
         setEndBoolean={setEndBoolean}
       />
-      <SubmitButton
+      <Button
+        fullWidth
         disabled={!startBoolean || !endBoolean}
         onClick={() => { setLoading(true); setNewResult(newResult + 1); }}
       >
         Search
-      </SubmitButton>
+      </Button>
       {newResult !== 0
       && (
         elements
       )}
-      <SubmitButton onClick={toSelection} className="previous">&#8249; Back</SubmitButton>
+      <Button fullWidth onClick={toSelection} className="previous">&#8249; Back</Button>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SubmitButton from '../../components/SubmitButton/SubmitButton';
+import Button from '../../components/Button/Button';
 
 import './WelcomePage.css';
 
@@ -15,7 +15,7 @@ function WelcomePage(props: Props) {
       <h1>Welcome to the Pledger wallet!</h1>
       <div className="center-image">
         <img src="http://www.pledger-project.eu/sites/all/themes/shinbun/logo_inverse.png" alt="Pledger Logo" />
-        <SubmitButton onClick={toCredentials}>Go</SubmitButton>
+        <Button fullWidth onClick={toCredentials}>Go</Button>
       </div>
     </div>
   );

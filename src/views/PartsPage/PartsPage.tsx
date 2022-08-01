@@ -3,8 +3,8 @@ import React, {
 } from 'react';
 import DatePicker from '../../components/DatePicker/DatePicker';
 import Loader from '../../components/Loader/Loader';
-import SubmitButton from '../../components/SubmitButton/SubmitButton';
-import { getParts } from '../../utils/utils';
+import Button from '../../components/Button/Button';
+import { getParts } from '../../api/api';
 
 import './PartsPage.css';
 
@@ -89,16 +89,17 @@ function PartsPage({ toSelection, privateKey, publicKey }: Props) {
         setEnd={setEnd}
         setEndBoolean={setEndBoolean}
       />
-      <SubmitButton
+      <Button
+        fullWidth
         disabled={!startBoolean || !endBoolean}
         onClick={() => { setLoading(true); setNewResult(newResult + 1); }}
       >
         Search
-      </SubmitButton>
+      </Button>
       {newResult !== 0 && (
         elements
       )}
-      <SubmitButton onClick={toSelection} className="previous">&#8249; Back</SubmitButton>
+      <Button fullWidth onClick={toSelection} className="previous">&#8249; Back</Button>
     </>
   );
 }
