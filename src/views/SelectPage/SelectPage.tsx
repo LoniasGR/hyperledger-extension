@@ -15,7 +15,7 @@ function SelectPage({
   return (
     <div>
       <h2>
-        Welcome,
+        Welcome
         {' '}
         {username}
       </h2>
