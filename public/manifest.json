@@ -1,6 +1,6 @@
 {
-  "name": "Pledger Chrome Extension",
-  "description": "Pledger Chrome extension that can be used to access ERC-20 like blockchains",
+  "name": "Hyperledger Fabric Chrome Extension",
+  "description": "Hyperledger Fabric Chrome extension that can be used to access ledgers",
   "version": "0.1.0",
   "manifest_version": 3,
   "permissions": ["storage"],
