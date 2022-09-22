@@ -21,6 +21,7 @@ function readKey(
   e: ChangeEvent,
   keyType: string,
   changeKey: (newKey: string) => void,
+  setKeySet: (status: boolean) => void,
   changeKeyName: (newKeyName: string) => void,
 ) {
   // TODO: Some error logging
@@ -34,6 +35,7 @@ function readKey(
       newKey = arrayBufferToString(newKey);
     }
     changeKey(newKey);
+    setKeySet(true);
     if (keyType === 'private') {
       const privateKey = newKey;
       setStorageData({ privateKey });
@@ -85,7 +87,6 @@ function CredentialPage({
     const publicFilename = await getActualStorageData('publicKeyFilename');
     const publicKeyTemp = await getActualStorageData('publicKey');
     if (publicFilename && publicKeyTemp) {
-      console.log(publicFilename, publicKeyTemp);
       setPublicKeyFilename(publicFilename);
       setPublicKey(publicKeyTemp);
       setIsPublicKeySet(true);
@@ -123,7 +124,7 @@ function CredentialPage({
                 {`${privateKeyFilename}`}
               </p>
             )}
-            <input type="file" id="private-key" onChange={(e) => readKey(e, 'private', setPrivateKey, setPrivateKeyFilename)} />
+            <input type="file" id="private-key" onChange={(e) => readKey(e, 'private', setPrivateKey, setIsPrivateKeySet, setPrivateKeyFilename)} />
           </label>
         </div>
 
@@ -136,7 +137,7 @@ function CredentialPage({
                 {`${publicKeyFilename}`}
               </p>
             )}
-            <input type="file" id="public-key" onChange={(e) => readKey(e, 'public', setPublicKey, setPublicKeyFilename)} />
+            <input type="file" id="public-key" onChange={(e) => readKey(e, 'public', setPublicKey, setIsPublicKeySet, setPublicKeyFilename)} />
           </label>
         </div>
 
