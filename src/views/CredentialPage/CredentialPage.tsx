@@ -76,7 +76,7 @@ function CredentialPage({
   const updateKeys = useCallback(async () => {
     const privateFilename = await getActualStorageData('privateKeyFilename');
     const privateKeyTemp = await getActualStorageData('privateKey');
-    if (privateFilename !== '' && privateKeyTemp !== '') {
+    if (privateFilename && privateKeyTemp) {
       setPrivateKeyFilename(privateFilename);
       setPrivateKey(privateKeyTemp);
       setIsPrivateKeySet(true);
@@ -84,7 +84,8 @@ function CredentialPage({
 
     const publicFilename = await getActualStorageData('publicKeyFilename');
     const publicKeyTemp = await getActualStorageData('publicKey');
-    if (publicFilename !== '' && publicKeyTemp !== '') {
+    if (publicFilename && publicKeyTemp) {
+      console.log(publicFilename, publicKeyTemp);
       setPublicKeyFilename(publicFilename);
       setPublicKey(publicKeyTemp);
       setIsPublicKeySet(true);
@@ -116,7 +117,7 @@ function CredentialPage({
         <div className="vertical centered">
           <p>Private key:</p>
           <label htmlFor="private-key" id="private-key-label">
-            {privateKeyFilename === '' ? 'Select private key' : (
+            {!privateKeyFilename ? 'Select private key' : (
               <p>
                 <strong>File: </strong>
                 {`${privateKeyFilename}`}
@@ -129,7 +130,7 @@ function CredentialPage({
         <div className="vertical centered">
           <p>Public key:</p>
           <label htmlFor="public-key" id="public-key-label">
-            {publicKeyFilename === '' ? 'Select public key' : (
+            {!publicKeyFilename ? 'Select public key' : (
               <p>
                 <strong>File: </strong>
                 {`${publicKeyFilename}`}
