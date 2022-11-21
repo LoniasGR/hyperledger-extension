@@ -13,6 +13,8 @@ type VRUAssets = {
   highRisk: number,
   lowRisk: number,
   noRisk: number,
+  critical: number,
+  warning: number,
 };
 
 type VRUAssetData = {
@@ -127,7 +129,7 @@ export async function getParts(
       if (data.success === false) {
         return { error: data.error };
       }
-      console.log(data.assets);
+      // console.log(data.assets);
       return { assets: data.assets };
     })
     .catch((error: Error) => {

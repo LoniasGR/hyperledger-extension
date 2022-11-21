@@ -38,8 +38,8 @@ function VRUPage({ toSelection, privateKey, publicKey }: Props) {
             setLoading(false);
           } else {
             setError('');
-            const { highRisk, lowRisk, noRisk } = result.assets!;
-            setResults([highRisk, lowRisk, noRisk]);
+            const { critical, warning, noRisk } = result.assets!;
+            setResults([critical, warning, noRisk]);
             setLoading(false);
           }
         });
@@ -62,8 +62,8 @@ function VRUPage({ toSelection, privateKey, publicKey }: Props) {
     elements = (
       <table>
         <tr>
-          <th>High Risk</th>
-          <th>Low Risk</th>
+          <th>Critical</th>
+          <th>Warning</th>
           <th>No Risk</th>
         </tr>
         <tr>
