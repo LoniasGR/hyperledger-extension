@@ -7,10 +7,11 @@ type Props = {
   toSelection: () => void,
   privateKey: string,
   publicKey: string,
+  organisation: number,
 };
 
 function BalancePage({
-  toSelection, privateKey, publicKey,
+  toSelection, privateKey, publicKey, organisation,
 }: Props) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -18,7 +19,7 @@ function BalancePage({
   const [balance, setBalance] = useState('');
 
   useEffect(() => {
-    getBalance(privateKey, publicKey)
+    getBalance(privateKey, publicKey, organisation)
       .then((result) => {
         if (result.error !== undefined) {
           setError(result.error);
@@ -46,7 +47,7 @@ function BalancePage({
       <>
         <h2 id="username">{`${username}`}</h2>
         <p>Your balance is</p>
-        <h3 id="balance">{`${balance}`}</h3>
+        <h3 id="balance">{`${Number(balance).toFixed(2)}`}</h3>
       </>
     );
   }

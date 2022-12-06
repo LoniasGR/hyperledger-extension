@@ -1,5 +1,5 @@
 import {
-  balanceURL, vruURL, partsURL, initURL,
+  balanceURL, vruURL, partsURL, initURL, sla2BalanceURL,
 } from '../utils/constants';
 import { keyToString } from '../utils/utils';
 
@@ -60,9 +60,11 @@ async function apiService(URL: string, data: RequestData): Promise<any> {
 export async function getBalance(
   privateKey: string,
   publicKey: string,
+  organisation: number,
 ): Promise<BalanceData> {
+  const url = organisation === 1 ? balanceURL : sla2BalanceURL;
   return apiService(
-    balanceURL,
+    url,
     {
       key: keyToString(privateKey),
       cert: keyToString(publicKey),

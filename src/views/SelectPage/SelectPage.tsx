@@ -19,7 +19,8 @@ function SelectPage({
         {' '}
         {username}
       </h2>
-      {organisation === 1 && <Button fullWidth onClick={toBalance}>Balance</Button>}
+      {(organisation === 1 || organisation === 4)
+      && <Button fullWidth onClick={toBalance}>Balance</Button>}
       {organisation === 2 && <Button fullWidth onClick={toVRU}>VRU</Button>}
       {organisation === 3 && <Button fullWidth onClick={toParts}>Parts</Button>}
       <Button fullWidth onClick={toCredentials}>Back</Button>

@@ -52,6 +52,7 @@ function App() {
         toSelection={toSelection}
         privateKey={privateKey}
         publicKey={publicKey}
+        organisation={organisation}
       />
     );
   }
